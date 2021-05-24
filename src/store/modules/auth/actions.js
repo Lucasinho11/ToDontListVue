@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const login = ({ commit }, form) => {
+export const login = ({ commit,state }, form) => {
     axios.post(
         'http://127.0.0.1:8000/api/auth/login',
         {
@@ -20,13 +20,16 @@ export const login = ({ commit }, form) => {
             }
 
             commit('data', user)
+            state.msg.success = 'Vous etes connecté'
+            
 
        }).catch((error) => {
+        state.msg.error = error
         console.log(error)
        }); 
 }
 
-export const register = ({ commit }, form) => {
+export const register = ({ commit, state }, form) => {
    axios.post(
     'http://127.0.0.1:8000/api/auth/register',
     {
@@ -46,7 +49,10 @@ export const register = ({ commit }, form) => {
             }
 
             commit('data', user)
+            state.msg.success = 'Compte enregsitré'
+           // window.location.href="/login"
    }).catch((error) => {
+    state.msg.error = error
     console.log(error)
    }); 
 }
@@ -64,11 +70,13 @@ export const logout = ({ commit, state }) => {
                 }
                 }).then((response) => {
                     console.log(response);
+                    state.msg.success = 'Vous etes déconnecté'
                }).catch((error) => {
                 console.log(error)
                }); 
                commit('token', null);
     commit('data', {});
+    window.location.href="/"
 }
 export const tasks_user = ({ commit, state }) => {
     axios.post(
@@ -126,6 +134,7 @@ export const updateTask = ({ commit,state }, task) => {
      console.log(error)
      state.msg.error = error
     });
+    //window.location.href="/tasks"
  }
  export const deleteTask = ({ state , commit}, task) => {   
                    axios.post(
@@ -144,7 +153,7 @@ export const updateTask = ({ commit,state }, task) => {
                   }).catch((error) => {
                    console.log(error)
                   }); 
-
+                 // window.location.href="/tasks"
                   
    }
    export const createTask = ({state }, form) => {
@@ -166,4 +175,5 @@ export const updateTask = ({ commit,state }, task) => {
      console.log(error)
      state.msg.error = error
     });
+    //window.location.href="/tasks"
  }

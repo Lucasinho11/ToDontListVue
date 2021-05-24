@@ -1,9 +1,10 @@
 <template>
   <div>
-    <h1>Me</h1>
+    <h1>Mon compte</h1>
 
     <div v-if="user.data">
-    <pre><code>{{ user }}</code></pre>
+      <p>Pseudo: {{user.data.name}}</p>
+      <p>Email: {{user.data.email}}</p>
     </div>
     <div v-else>Not logged.</div>
   </div>
